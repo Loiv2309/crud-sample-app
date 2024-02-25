@@ -5,6 +5,7 @@ import hr.comping.crud.entity.jsonview.JsonViewFilter;
 import hr.comping.crud.entity.superclasses.BaseEntity;
 import hr.comping.crud.dto.SearchCriteria;
 import hr.comping.crud.filtering.SearchType;
+import hr.comping.crud.filtering.SortDirection;
 import hr.comping.crud.service.AbstractService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,11 +63,11 @@ public abstract class AbstractController<T extends BaseEntity> {
     @GetMapping("/page")
     @JsonView(JsonViewFilter.Basic.class)
     public Page<T> pagination(@RequestParam int skip,
-                                    @RequestParam int take,
-                                    @RequestParam(required = false, defaultValue = "id") String sort,
-                                    @RequestParam(required = false, defaultValue = "desc") String direction,
-                                    @RequestParam(required = false, defaultValue = "AND") SearchType searchType,
-                                    @RequestBody(required = false) @Valid List<SearchCriteria> searchCriteria) {
+                              @RequestParam int take,
+                              @RequestParam(required = false, defaultValue = "id") String sort,
+                              @RequestParam(required = false, defaultValue = "DESC") SortDirection direction,
+                              @RequestParam(required = false, defaultValue = "AND") SearchType searchType,
+                              @RequestBody(required = false) @Valid List<SearchCriteria> searchCriteria) {
 
         return abstractService.findAllPage(skip,take,sort,direction,searchCriteria,searchType);
     }

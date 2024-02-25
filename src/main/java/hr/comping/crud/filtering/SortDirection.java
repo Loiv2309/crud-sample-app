@@ -4,11 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Enum specifying the search direction when filtering entities.
+ * Enum specifying the sort direction when filtering entities.
  */
 @AllArgsConstructor
 @Getter
-public enum SearchDirection {
+public enum SortDirection {
     ASC("asc"),DESC("desc");
 
     private final String val;

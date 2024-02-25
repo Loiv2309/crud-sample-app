@@ -6,6 +6,7 @@ import hr.comping.crud.exception.EntityNotFoundException;
 import hr.comping.crud.filtering.EntitySpecificationBuilder;
 import hr.comping.crud.dto.SearchCriteria;
 import hr.comping.crud.filtering.SearchType;
+import hr.comping.crud.filtering.SortDirection;
 import hr.comping.crud.repository.AbstractRepository;
 import hr.comping.crud.util.Translator;
 import jakarta.transaction.Transactional;
@@ -93,14 +94,14 @@ public abstract class AbstractService<T extends BaseEntity> {
      * @param skip Number of items to skip.
      * @param take Number of items to take (page size).
      * @param sort Field to sort by.
-     * @param direction Sorting direction (asc or desc).
+     * @param direction Sorting direction (ascending or descending).
      * @param searchType Type of search (AND or OR) for multiple search criteria.
      * @param searchCriteria List of search criteria to filter entities.
      * @return Page of entities matching the pagination and filtering criteria.
      */
-    public Page<T> findAllPage(int skip, int take, String sort, String direction, List<SearchCriteria> searchCriteria, SearchType searchType) {
+    public Page<T> findAllPage(int skip, int take, String sort, SortDirection direction, List<SearchCriteria> searchCriteria, SearchType searchType) {
         Sort customSort = Sort.by(sort).descending();
-        if (direction.equalsIgnoreCase("asc") || direction.equalsIgnoreCase("ascending")) {
+        if (direction.equals(SortDirection.ASC)) {
             customSort = Sort.by(sort).ascending();
         }
         Pageable pageable = PageRequest.of(skip == 0 ? 0 : skip / take, take, customSort);
