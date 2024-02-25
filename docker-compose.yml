@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    image: 'crud-app:1.0.0'
+    build:
+      context: .
+    container_name: crud-app
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=test-crud
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/crud
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1J@t%H£7)ct8
+    ports:
+      - "8080:8080"
+
+  db:
+    image: postgres
+    container_name: db
+    volumes:
+      - ./import:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1J@t%H£7)ct8
+      - POSTGRES_DB=crud
+    ports:
+      - "5432:5432"
